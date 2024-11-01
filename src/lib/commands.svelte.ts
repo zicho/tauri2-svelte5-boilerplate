@@ -35,3 +35,14 @@ export class GlobalState {
 		this.greet = '';
 	}
 }
+
+export class UiState {
+	private _state = $state({ title: '' });
+
+	get title() {
+		return this._state.title;
+	}
+	set greet(value: string) {
+		this._state.title = value;
+	}
+}

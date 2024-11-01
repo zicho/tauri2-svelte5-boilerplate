@@ -1,50 +1,40 @@
 <script lang="ts">
-  import Calendar from "lucide-svelte/icons/calendar";
-  import House from "lucide-svelte/icons/house";
-  import Inbox from "lucide-svelte/icons/inbox";
-  import Search from "lucide-svelte/icons/search";
-  import Settings from "lucide-svelte/icons/settings";
-  import * as Sidebar from "$lib/components/ui/sidebar/index.js";
+	import * as Sidebar from "$lib/components/ui/sidebar/index.js";
+	import { getUiState } from "$lib/state/ui.svelte";
+	import House from "lucide-svelte/icons/house";
+	import Utensils from "lucide-svelte/icons/utensils";
   
+  const uiState = getUiState();
+
   // Menu items.
   const items = [
    {
     title: "Home",
-    url: "#",
+    url: "/",
     icon: House,
    },
    {
-    title: "Inbox",
-    url: "#",
-    icon: Inbox,
+    title: "Recipes",
+    url: "/recipes",
+    icon: Utensils,
    },
    {
-    title: "Calendar",
-    url: "#",
-    icon: Calendar,
-   },
-   {
-    title: "Search",
-    url: "#",
-    icon: Search,
-   },
-   {
-    title: "Settings",
-    url: "#",
-    icon: Settings,
+    title: "Template",
+    url: "/template",
+    icon: Utensils,
    },
   ];
  </script>
   
  <Sidebar.Root>
   <Sidebar.Content>
-   <Sidebar.Group>
+   <Sidebar.Group class="p-0"> 
     <!-- <Sidebar.GroupLabel>Application</Sidebar.GroupLabel> -->
     <Sidebar.GroupContent>
-     <Sidebar.Menu>
+     <Sidebar.Menu class="gap-0">
       {#each items as item (item.title)}
        <Sidebar.MenuItem>
-        <Sidebar.MenuButton>
+        <Sidebar.MenuButton isActive={uiState.currentPage === item.title} class="w-full rounded-none h-12 text-base tracking-wide">
          {#snippet child({ props })}
           <a href={item.url} {...props}>
            <item.icon />
